@@ -1,5 +1,7 @@
 # InversionDashboard
 
+**Español** | [English](#english)
+
 Dashboard web de **análisis y predicción bursátil** (acciones y ETF de EE.UU. y México).
 Solo análisis: **no opera ni toca tu dinero**.
 
@@ -61,4 +63,73 @@ InversionDashboard/
 ├── indicadores.py    ← RSI, MACD, medias, Bollinger
 ├── modelos.py        ← predicciones, backtest, riesgo
 └── watchlist.json    ← se crea solo con tus símbolos
+```
+
+---
+
+# English
+
+[Español](#inversiondashboard) | **English**
+
+Web dashboard for **stock and ETF analysis and forecasting** (US and Mexican markets).
+Analysis only: **it never trades or touches your money**.
+
+> **Disclaimer**: this is not financial advice. No model can guarantee profits or
+> eliminate risk; investing always involves the possibility of losing capital.
+> Consult a certified advisor before making decisions about your money.
+
+## How to use it (no programming needed)
+
+1. **Double-click `iniciar.bat`**.
+2. The first run takes 1-2 minutes (it installs everything automatically).
+3. It opens in your browser (`http://localhost:8501`).
+4. To close it: close the black terminal window.
+
+If Streamlit does not open the browser, copy and paste `http://localhost:8501` into your browser.
+
+## What it includes
+
+| Section | What it does |
+|---|---|
+| 1 · Quote | Candlesticks, volume, SMA 50/200 and fundamentals (P/E, dividend, 52-week range) |
+| 2 · Indicators | RSI, MACD, Bollinger Bands and trend, explained in plain language |
+| 3 · Forecasts | Three models: Holt-Winters with a 95% band, an ML model with **real measured error**, and bullish/base/bearish scenarios |
+| 4 · Backtest | Moving-average crossover strategy vs. buy and hold (Sharpe, drawdown, volatility) |
+| 5 · Risk | Annual volatility, 95% VaR, value at risk for your capital, worst historical day |
+| 6 · Watchlist | Compare your symbols in a single table |
+
+## Symbols
+
+- US: `AAPL`, `SPY`, `QQQ`, `TSLA`...
+- Mexico (`.MX` suffix): `WALMEX.MX`, `AMXB.MX`, `GFNORTEO.MX`, `AMXBM.MX`...
+- Your watchlist is saved automatically to `watchlist.json`.
+
+## About the data and models
+
+- **Data**: Yahoo Finance via `yfinance` (unofficial, free source; occasional delays
+  or failures may occur). Includes a 1-hour cache and automatic retries.
+  *Plan B if Yahoo fails often*: sign up for a free Finnhub account (official API, 60 calls/min).
+- **Models**: Holt-Winters (statsmodels), Ridge (scikit-learn) and moving-average
+  crossover rules. All use a train/test split: the error shown is measured on data
+  the model never saw.
+- **Realistic expectations**: a MAE of X means the model is off by X dollars on average;
+  directional accuracy near 50% means it is as right as a coin flip. Use it to understand
+  risk, not to believe it can predict the future.
+
+## Requirements
+
+- Windows 10/11 with Python 3.11+ (https://www.python.org/downloads/).
+- Internet connection to download data.
+
+## Structure
+
+```
+InversionDashboard/
+├── iniciar.bat       ← double-click to start
+├── requirements.txt
+├── app.py            ← UI (Streamlit)
+├── datos.py          ← data download (yfinance)
+├── indicadores.py    ← RSI, MACD, moving averages, Bollinger
+├── modelos.py        ← forecasts, backtest, risk
+└── watchlist.json    ← created automatically with your symbols
 ```
